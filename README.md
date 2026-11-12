@@ -28,21 +28,13 @@ O cliente Supabase usa uma chave **publicável** no código do navegador. Isso �
 
 ## Criar o primeiro administrador
 
-1. No Supabase, abra **Authentication → Users → Add user** e crie manualmente o usuário administrativo com seu e-mail e uma senha forte.
-2. No **SQL Editor**, execute a consulta abaixo, substituindo o e-mail pelo mesmo que você acabou de cadastrar. Ela só altera o perfil correspondente ao usuário existente:
+1. Abra o [Supabase do projeto J&A](https://supabase.com/dashboard/project/fzlclobstowfuuaguhes/auth/users).
+2. Em **Authentication → Users → Add user**, crie o usuário com seu próprio e-mail e uma senha forte. Não compartilhe a senha no chat.
+3. Abra o **SQL Editor** e execute o conteúdo de [ADMIN_SETUP.sql](./ADMIN_SETUP.sql), substituindo `COLOQUE-SEU-EMAIL-AQUI` pelo e-mail exato do usuário criado. O script apenas promove um perfil existente; não cria usuários nem define senhas.
+4. Confirme que o resultado mostra seu e-mail com `role = admin`.
+5. Acesse [o painel administrativo](https://ja-smartwatch.vercel.app/#admin) e entre com o e-mail e a senha criados.
 
-```sql
-update public.profiles p
-set role = 'admin', updated_at = now()
-from auth.users u
-where p.id = u.id
-  and lower(u.email) = lower('admin@seudominio.com');
-```
-
-3. Confirme que exatamente uma linha foi atualizada. Se nenhuma linha for atualizada, verifique se o usuário existe e se o perfil já foi criado.
-4. Acesse `https://SUA-URL-VERCEL/#admin`, entre com esse e-mail e senha. Se já estiver logado e precisar testar novamente, use **Sair**.
-
-Não habilite cadastro público de administradores. O painel exige autenticação e as operações de escrita também dependem das políticas RLS do Supabase.
+Não habilite cadastro público de administradores. O painel exige autenticação e as operações de escrita dependem das políticas RLS do Supabase. No momento da revisão, o projeto ainda não tinha usuários em Authentication; por isso, o login administrativo precisa ser inicializado conforme estas etapas.
 
 ## Configurar o WhatsApp
 
