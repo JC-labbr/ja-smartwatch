@@ -7,7 +7,9 @@ Loja virtual em HTML/CSS/JavaScript, pronta para ser importada como site estáti
 - Página inicial responsiva e catálogo com busca, categorias e ordenação por preço.
 - Carrinho com quantidade, subtotal/total e mensagem de pedido para WhatsApp.
 - Área administrativa em `/#admin`, com autenticação Supabase.
-- Cadastro, edição e desativação de produtos, preço, estoque, categoria, imagem, especificações e destaque.
+- Cadastro, edição e desativação de produtos, preço, estoque, categoria, imagem, especificações e status de promoção, destaque ou lançamento.
+- Upload de imagens do computador para o Supabase Storage (JPG, PNG, WEBP ou GIF, até 10 MB).
+- Seleção do produto principal da página inicial em **Painel → Configurações → Produto do destaque principal**; a imagem, nome e preço do produto selecionado aparecem no destaque.
 - Configurações da loja, incluindo número do WhatsApp.
 - O banco Supabase já contém cinco categorias, oito produtos demonstrativos, imagens de catálogo e configuração inicial.
 
@@ -34,7 +36,7 @@ O cliente Supabase usa uma chave **publicável** no código do navegador. Isso �
 4. Confirme que o resultado mostra seu e-mail com `role = admin`.
 5. Acesse [o painel administrativo](https://ja-smartwatch.vercel.app/#admin) e entre com o e-mail e a senha criados.
 
-Não habilite cadastro público de administradores. O painel exige autenticação e as operações de escrita dependem das políticas RLS do Supabase. No momento da revisão, o projeto ainda não tinha usuários em Authentication; por isso, o login administrativo precisa ser inicializado conforme estas etapas.
+Não habilite cadastro público de administradores. O painel exige autenticação e as operações de escrita dependem das políticas RLS do Supabase.
 
 ## Configurar o WhatsApp
 
@@ -44,6 +46,6 @@ No painel, abra **Configurações** e informe o número comercial completo com c
 
 - A finalização direciona o cliente ao WhatsApp; não há pagamento online.
 - Não é criado um pedido no banco nem é feita reserva automática de estoque.
-- As imagens são URLs externas; para gestão de arquivos profissional, configure depois um bucket do Supabase Storage com políticas de acesso apropriadas.
+- O upload de imagens usa o bucket público `product-images`; somente administradores autenticados podem enviar, substituir ou excluir arquivos. A leitura pública é necessária para exibir fotos no catálogo.
 - O carrinho é salvo localmente no navegador do cliente.
 - A chave publicável está no cliente de propósito; não é uma chave secreta. Não copie credenciais administrativas para o frontend.
